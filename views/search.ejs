@@ -1,9 +1,8 @@
 <div id="search_bar" class="form-group row">
   <p>Selecione uma camada para realizar a pesquisa:</p>
-  <select id="search_list" class="form-control  form-control-sm" onchange="searchableFields();closeTable()"
-    style="outline: none;">
-    <option value="-1"> Nada selecionado</option>
-  </select>
+  <input type="text" class="form-control form-control-sm webgente-search-form" name="sch" id="sch" placeholder="Busca"/>
+  <div id="options_container" class="form-group"></div>
+
   <div id="search_fields" class="collapse ">
     <div class="input-group">
       <div id="sub_search_fields"></div>

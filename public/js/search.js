@@ -19,14 +19,29 @@ function selectOptions() {
         },
         success: function (response) {
 
-            response.map(({
-                layer,
-                layerName
-            }) => {
-
-                $('#search_list').append(`<option>${layerName}</option>`);
-
-            })
+            const container = document.getElementById('options_container');
+            container.innerHTML = ''; // Limpa as opções anteriores
+            response.forEach(({ layer, layerName }) => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = layer;
+                checkbox.id = `option_${layer}`;
+                checkbox.className = 'form-check-input';
+                checkbox.addEventListener('change', searchableFields);
+                
+                const label = document.createElement('label');
+                label.htmlFor = `option_${layer}`;
+                label.innerText = layerName;
+                
+                label.className = 'form-check-label';
+                
+                const div = document.createElement('div');
+                div.className = 'form-check';
+                div.appendChild(checkbox);
+                div.appendChild(label);
+                
+                container.appendChild(div);
+            });
             layersQuerrys = response
 
         }
@@ -35,18 +50,45 @@ function selectOptions() {
 
 //Gera os os campos pesquisáveis 
 function searchableFields() {
-    if ($('#search_list').prop('selectedIndex') > 0) {
-        $("#search_fields").show();
-        var option = layersQuerrys[$('#search_list').prop('selectedIndex') - 1];
-        var complete_sub = ""
+    console.log("chamou")
+    console.log("chamou");
+    
+    const subSearchFields = document.getElementById('sub_search_fields');
+    subSearchFields.innerHTML = ''; // Limpa subcampos anteriores
 
-        Object.keys(option.queryFields).map((element) => {
-            complete_sub += `<input type="text" class="form-control form-control-sm webgente-search-form" name="` + element + `" id="` + element + `" placeholder="` + option.queryFields[element].fieldAlias + `">`
-        })
-        $("#sub_search_fields").html(complete_sub)
+    const checkboxes = document.querySelectorAll('#options_container input[type="checkbox"]');
+    checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+            const option = layersQuerrys[index];
+
+            Object.keys(option.queryFields).forEach((element) => {
+                const subCheckbox = document.createElement('input');
+                subCheckbox.type = 'checkbox';
+                subCheckbox.value = element;
+                subCheckbox.id = `subfield_${element}`;
+                subCheckbox.className = 'form-check-input';
+
+                const subLabel = document.createElement('label');
+                subLabel.htmlFor = `subfield_${element}`;
+                subLabel.innerText = option.queryFields[element].fieldAlias;
+                subLabel.className = 'form-check-label';
+
+                const subDiv = document.createElement('div');
+                subDiv.className = 'form-check';
+                subDiv.appendChild(subCheckbox);
+                subDiv.appendChild(subLabel);
+
+                subSearchFields.appendChild(subDiv);
+            });
+        }
+    });
+
+    if (subSearchFields.children.length > 0) {
+        document.getElementById('search_fields').classList.add('show');
     } else {
-        $("#search_fields").hide();
+        document.getElementById('search_fields').classList.remove('show');
     }
+
 
 }
 
@@ -56,10 +98,10 @@ function filter_concate() {
 
     for (query in requestParams.layerSelect.queryFields) {
 
-        var value = document.getElementById(query).value
+        var value = document.getElementById("sch").value
         if (!value.trim() == false) {
             //Adição da condição E para mais de uma propriedade
-            cql_filter += (value != "" & cql_filter != "") ? " and " : ""
+            cql_filter += (value != "" & cql_filter != "") ? " or " : ""
             //Verficação de tipo do campo
             if (requestParams.layerSelect.queryFields[query].fieldType == "string") {
                 // cql_filter+= ("("+query+" LIKE "+ "'%"+value+"%')")
@@ -81,49 +123,56 @@ function table_factory() {
     if (download_enabled != 0)
         $("#download_all").show()
 
-    var option = layersQuerrys[$('#search_list').prop('selectedIndex') - 1];
-    requestParams.layerSelect = option
-    addLayerByName(requestParams.layerSelect.layer)
-    filter_concate()
-    //Adquire campos habilitados para o usuário
-    $.get('/propertyname/' + option.layer, function (data) {
+    const checkboxes = document.querySelectorAll('#options_container input[type="checkbox"]');
+    checkboxes.forEach((checkbox, index) => {
+        if (checkbox.checked) {
+            var option = layersQuerrys[index];
+    
+            requestParams.layerSelect = option
+            console.log(requestParams.layerSelect.layer)
+            addLayerByName(requestParams.layerSelect.layer)
+            filter_concate()
+            //Adquire campos habilitados para o usuário
+            $.get('/propertyname/' + option.layer, function (data) {
 
-        requestParams.property_name = Object.keys(data.field)
-        requestParams.property_name.push("id", "geom") // Adiciona o id e a geometria para utilizar em downloads e zoom
-        var column = new Array()
-        //Forma a coluna json
-        Object.keys(data.field).map((element) => {
-            if (element != 'geom') {
+                requestParams.property_name = Object.keys(data.field)
+                requestParams.property_name.push("id", "geom") // Adiciona o id e a geometria para utilizar em downloads e zoom
+                var column = new Array()
+                //Forma a coluna json
+                Object.keys(data.field).map((element) => {
+                    if (element != 'geom') {
+                        column.push({
+                            field: element,
+                            title: element
+                        })
+
+                    }
+                })
+                //Coluna para os botões
                 column.push({
-                    field: element,
-                    title: element
+                    formatter: TableActions,
+                    title: (download_enabled == 0) ? "Zoom" : "Download/Zoom"
+                })
+                //Adicionando colunas a tabela
+                $("#table").bootstrapTable({
+                    columns: column
+                })
+                //Adicionando parametros a tabela  
+                $("#table").bootstrapTable('refreshOptions', {
+                    ajax: 'ajaxRequest',
+                    pagination: true
                 })
 
-            }
-        })
-        //Coluna para os botões
-        column.push({
-            formatter: TableActions,
-            title: (download_enabled == 0) ? "Zoom" : "Download/Zoom"
-        })
-        //Adicionando colunas a tabela
-        $("#table").bootstrapTable({
-            columns: column
-        })
-        //Adicionando parametros a tabela  
-        $("#table").bootstrapTable('refreshOptions', {
-            ajax: 'ajaxRequest',
-            pagination: true
-        })
-
-    })
-
+            })
+        }
+    });
 
 }
 //Requisição da tabela
 function ajaxRequest(params) {
-
-    var option = layersQuerrys[$('#search_list').prop('selectedIndex') - 1];
+    console.log("params")
+    console.log(params.data)
+    var option = layersQuerrys[0];
     var wfsParams = {
         layer: option.layer,
         format: encodeURIComponent('application/json'),
@@ -134,6 +183,8 @@ function ajaxRequest(params) {
     }
     $("#search_fields").hide();
     var url1 = '/wfs/' + Object.values(wfsParams).join('/')
+    console.log(url1)
+    console.log(url)
     $.get({
         url: url1,
         success: (data) => {
