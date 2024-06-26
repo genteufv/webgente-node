@@ -233,7 +233,7 @@ var select= false; // Variável que habilita a seleção de camadas
 var selectButton = L.easyButton({
     states: [{
                 stateName: 'select_disabled',
-                icon:      'fas fa-hand-pointer',
+                icon:      '<i class="fas fa-hand-pointer" style="color: gray;"></i>',  
                 title:     'Clique sobre um elemento de uma camada ligada para seleciona-lo',   
                 onClick: function(btn) {       
                     selectButton.state('select_enabled');
@@ -243,7 +243,7 @@ var selectButton = L.easyButton({
                 }
             }, {
                 stateName: 'select_enabled',   
-                icon:      'far fa-hand-pointer',               
+                icon:      '<i class="fas fa-hand-pointer"></i>',              
                 title:     'Desabilita a ferramenta de seleção de feições',
                 onClick: function(btn) {
                     selectButton.state('select_disabled');
@@ -259,7 +259,7 @@ var gfi = false; // Variável que habilita o GetFeatureInfo
 var infoButton = L.easyButton({
     states: [{
                 stateName: 'info_disabled',
-                icon:      'fas fa-info-circle',
+                icon:      '<i class="fas fa-info-circle" style="color: gray;"></i>',     
                 title:     'Clique sobre um elemento de uma camada ligada para visualizar seus atributos',   
                 onClick: function(btn) {       
                     infoButton.state('info_enabled');
@@ -268,7 +268,7 @@ var infoButton = L.easyButton({
                 }
             }, {
                 stateName: 'info_enabled',   
-                icon:      '<i class="fas fa-info-circle" style="color: gray;"></i>',               
+                icon:      'fas fa-info-circle',               
                 title:     'Desabilita a ferramenta de visualização de atributos das camadas',
                 onClick: function(btn) {
                     infoButton.state('info_disabled');
@@ -281,8 +281,8 @@ var infoButton = L.easyButton({
 // Adiciona botao para ativar a ferramenta de pesquisas
 var searchButton = L.easyButton({
     states: [{
-                stateName: 'search_disabled',                
-                icon:      '<img src="/img/search_disabled.png"">',
+                stateName: 'search_disabled',       
+                icon:      '<i class="fas fa-search" style="color: gray;"></i>',     
                 title:     'Pesquise elementos das camadas pelos seus atributos',   
                 onClick: function(btn) {       
                     searchButton.state('search_enabled');
@@ -294,7 +294,7 @@ var searchButton = L.easyButton({
                 }
             }, {
                 stateName: 'search_enabled',   
-                icon:      '<img src="/img/search_enabled.png">',               
+                icon:      'fas fa-search',               
                 title:     'Desabilita ferramenta de pesquisa por atributo nas camadas',
                 onClick: function(btn) {
                     searchButton.state('search_disabled');
@@ -316,7 +316,7 @@ var legendButton = L.easyButton({
     id: 'legend-button',
     states: [{
                 stateName: 'legend_enabled',   
-                icon:      '<img src="img/legend_enabled.png">',               
+                icon:      'fas fa-bars',   
                 title:     'Desabilita a legenda',
                 onClick: function(btn) {
                     legendButton.state('legend_disabled');
@@ -326,7 +326,7 @@ var legendButton = L.easyButton({
                 }
             }, {
                 stateName: 'legend_disabled',
-                icon:      '<img src="img/legend_disabled.png">',
+                icon:      '<i class="fas fa-bars" style="color: gray;"></i>',             
                 title:     'Habilita a legenda',   
                 onClick: function(btn) {       
                     legendButton.state('legend_enabled');
@@ -343,7 +343,7 @@ var geolocationButton = L.easyButton({
     id: 'geolocationButton',
     states: [{
             stateName: 'geolocation_disabled',
-            icon:      'fas fa-map-marker-alt',
+            icon:      '<i class="fas fa-map-marker-alt" style="color: gray;"></i>', 
             title:     'Onde estou?',   
             onClick: function(btn) {       
                 geolocationButton.state('geolocation_enabled');
@@ -353,7 +353,7 @@ var geolocationButton = L.easyButton({
         },
         {
             stateName: 'geolocation_enabled',   
-            icon:      '<i class="fas fa-map-marker-alt" style="color: gray;"></i>',               
+            icon:      'fas fa-map-marker-alt',              
             title:     'Parar de me seguir',
             onClick: function(btn) {
                 geolocationButton.state('geolocation_disabled');
@@ -388,7 +388,7 @@ var measurementButton = L.easyButton({
     id: 'measurementButton',
     states: [{
                 stateName: 'measurement_enabled',   
-                icon:      'fas fa-ruler',               
+                icon:      '<i class="fas fa-ruler" style="color: gray;"></i>', 
                 title:     'Clique para abrir as ferramentas de medição de distâncias e áreas',
                 onClick: function(btn) {
                     measurementButton.state('measurement_disabled');

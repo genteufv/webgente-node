@@ -148,7 +148,8 @@ th {
 	margin-left: 60px;	
 	max-height: 70vh; 
 	padding: 3%;
-	max-width: 50vh;
+	max-width: 89%;
+    max-height: 95vh;
 	overflow-y: auto;
 	overflow-x: auto;
 	border-color: rgba(73, 73, 73, 0.377);
@@ -156,10 +157,18 @@ th {
 	border-radius: 10px;
 }
 
+.resizable {
+	resize: both;
+	overflow: auto;
+}
+
 .input-group {
 	padding: 5px 5px 5px 0px;
 }
 
+.webgente-search-form {
+	margin-bottom: 15px;
+}
 .webgente-search-form:hover {
 	background: rgb(216, 216, 216);
 	transition: background-color 0.5s ease;
@@ -175,9 +184,9 @@ th {
 		background-color: #FFFFFF;
 		margin-top: 12px;
 		margin-left: 60px;	
-		max-height: 70vh; 
+		max-height: 80vh; 
 		padding: 5%;
-		max-width: 50vh;
+		max-width: 65vh;
 		overflow-y: auto;
 		overflow-x: auto;
 		border-color: rgba(73, 73, 73, 0.377);
