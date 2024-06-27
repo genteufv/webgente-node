@@ -82,8 +82,8 @@ function JSONcontentParser (data) {
     for (i = 0; i < data.features.length; i++) {
         
         const element = data.features[i];
-
-        content.push('<div class="popup-inner-div"><p><a class="link-table-collapse" data-toggle="collapse" href="#row-'+i+'">'+element.id.split('.')[0]+': '+featureCadasterId(element)+'</a></p></div><div id="row-'+i+'" class="panel-collapse collapse"><div class="panel-body">');
+        var lbl = element.id.split('.')[0].split('_')[1]+': '+(featureCadasterId(element) != null ? featureCadasterId(element): element.id.split('.')[0]);
+        content.push('<div class="popup-inner-div"><p><a class="link-table-collapse" data-toggle="collapse" href="#row-'+i+'">'+lbl+'</a></p></div><div id="row-'+i+'" class="panel-collapse collapse"><div class="panel-body">');
         var table = ['<table><tr><th>Atributo</th><th>Valor</th></tr>'];
 
         for (j = 0; j < Object.keys(element.properties).length; j++) {    
