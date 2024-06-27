@@ -7,18 +7,73 @@ var resultWFS = new Array() // o resultado da pesquisa em wfs
 var requestParams = new Object() // recolhe os parametros chave para requisição
 var focus_style = L.geoJSON().addTo(map);// zoom e adicionar estilos
 
-//Gera a lista de camadas disponíveis para a pesquisa
+$(document).ready(function() {
+    // Evento delegado para manipular elementos dinâmicos
+    $('#options_container').on('change', 'input[type="checkbox"]', function() {
+        var $parentDiv = $(this).closest('.form-check');
+        var layer = $(this).val();
+        var $subOptions = $parentDiv.find('.sub-options');
+
+        if ($(this).is(':checked')) {
+            if ($subOptions.length === 0) {
+                // Se não existir o contêiner de sub-opções, crie-o dinamicamente
+                var subOptionsDiv = document.createElement('div');
+                subOptionsDiv.className = 'sub-options';
+                subOptionsDiv.style.display = 'none';
+
+                // Adicione sub-opções dinamicamente aqui
+                var option = layersQuerrys.find(item => item.layer === layer);
+                if (option) {
+                    Object.keys(option.queryFields).forEach((element) => {
+                        const subCheckbox = document.createElement('input');
+                        subCheckbox.type = 'checkbox';
+                        subCheckbox.value = element;
+                        subCheckbox.id = `subfield_${element}`;
+                        subCheckbox.className = 'form-check-input';
+
+                        const subLabel = document.createElement('label');
+                        subLabel.htmlFor = `subfield_${element}`;
+                        subLabel.innerText = option.queryFields[element].fieldAlias;
+                        subLabel.className = 'form-check-label';
+
+                        const subDiv = document.createElement('div');
+                        subDiv.className = 'form-check';
+                        subDiv.appendChild(subCheckbox);
+                        subDiv.appendChild(subLabel);
+
+                        subOptionsDiv.appendChild(subDiv);
+                    });
+                }
+
+                $parentDiv.append(subOptionsDiv);
+                $(subOptionsDiv).slideDown();
+            } else {
+                $subOptions.slideDown();
+            }
+        } else {
+            // Desmarca todas as sub-opções e as oculta
+            $subOptions.find('input[type="checkbox"]').prop('checked', false);
+            $subOptions.slideUp();
+        }
+
+        // Verifica se há sub-opções visíveis para mostrar/esconder o botão de pesquisa
+        updateSearchFieldsVisibility();
+    });
+
+    // Função para buscar e adicionar opções dinamicamente
+    selectOptions();
+});
+
 function selectOptions() {
     $.ajax({
         url: '/listqueryable/',
         beforeSend: function () {
-            $('#load').addClass('spinner-border ms-auto')
+            $('#load').addClass('spinner-border ms-auto');
         },
         complete: function () {
-            $('#load').removeClass('spinner-border ms-auto')
+            $('#load').removeClass('spinner-border ms-auto');
         },
         success: function (response) {
-
             const container = document.getElementById('options_container');
             container.innerHTML = ''; // Limpa as opções anteriores
             response.forEach(({ layer, layerName }) => {
@@ -27,12 +82,10 @@ function selectOptions() {
                 checkbox.value = layer;
                 checkbox.id = `option_${layer}`;
                 checkbox.className = 'form-check-input';
-                checkbox.addEventListener('change', searchableFields);
                 
                 const label = document.createElement('label');
                 label.htmlFor = `option_${layer}`;
                 label.innerText = layerName;
-                
                 label.className = 'form-check-label';
                 
                 const div = document.createElement('div');
@@ -42,54 +95,31 @@ function selectOptions() {
                 
                 container.appendChild(div);
             });
-            layersQuerrys = response
-
+            layersQuerrys = response;
         }
-    })
+    });
 }
 
-//Gera os os campos pesquisáveis 
-function searchableFields() {
-    console.log("chamou")
-    console.log("chamou");
-    
-    const subSearchFields = document.getElementById('sub_search_fields');
-    subSearchFields.innerHTML = ''; // Limpa subcampos anteriores
-
+//ocultar botão de ok caso não tenha item marcado
+function updateSearchFieldsVisibility() {
+    const searchButtonContainer = document.getElementById('search_button_container');
     const checkboxes = document.querySelectorAll('#options_container input[type="checkbox"]');
-    checkboxes.forEach((checkbox, index) => {
+    let hasVisibleSubOptions = false;
+
+    checkboxes.forEach((checkbox) => {
         if (checkbox.checked) {
-            const option = layersQuerrys[index];
-
-            Object.keys(option.queryFields).forEach((element) => {
-                const subCheckbox = document.createElement('input');
-                subCheckbox.type = 'checkbox';
-                subCheckbox.value = element;
-                subCheckbox.id = `subfield_${element}`;
-                subCheckbox.className = 'form-check-input';
-
-                const subLabel = document.createElement('label');
-                subLabel.htmlFor = `subfield_${element}`;
-                subLabel.innerText = option.queryFields[element].fieldAlias;
-                subLabel.className = 'form-check-label';
-
-                const subDiv = document.createElement('div');
-                subDiv.className = 'form-check';
-                subDiv.appendChild(subCheckbox);
-                subDiv.appendChild(subLabel);
-
-                subSearchFields.appendChild(subDiv);
-            });
+            const subOptions = checkbox.closest('.form-check').querySelector('.sub-options');
+            if (subOptions && subOptions.children.length > 0) {
+                hasVisibleSubOptions = true;
+            }
         }
     });
 
-    if (subSearchFields.children.length > 0) {
-        document.getElementById('search_fields').classList.add('show');
+    if (hasVisibleSubOptions) {
+        searchButtonContainer.classList.add('show');
     } else {
-        document.getElementById('search_fields').classList.remove('show');
+        searchButtonContainer.classList.remove('show');
     }
-
-
 }
 
 //Concatena strings dos inputs para o cql_filter 
@@ -115,6 +145,12 @@ function filter_concate() {
 
 }
 
+// Evento para manter o botão "OK" visível após o clique
+$('#okSearch').on('click', function(event) {
+    event.preventDefault(); // Previne o comportamento padrão
+    // Chama a função de pesquisa, se necessário
+    table_factory();
+});
 
 //Adicionar elementos a tabela 
 function table_factory() {
@@ -181,7 +217,6 @@ function ajaxRequest(params) {
         srs_name: 'EPSG:4326'
 
     }
-    $("#search_fields").hide();
     var url1 = '/wfs/' + Object.values(wfsParams).join('/')
     console.log(url1)
     console.log(url)

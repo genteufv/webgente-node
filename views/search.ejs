@@ -1,22 +1,17 @@
-<div id="search_bar" class="form-group row">
+<div id="search_bar" class="form-group column">
   <p>Selecione uma camada para realizar a pesquisa:</p>
   <input type="text" class="form-control form-control-sm webgente-search-form" name="sch" id="sch" placeholder="Busca"/>
   <div id="options_container" class="form-group"></div>
 
-  <div id="search_fields" class="collapse ">
-    <div class="input-group">
-      <div id="sub_search_fields"></div>
-    </div>
+  <div id="search_button_container" class="collapse">
     <input class='btn btn-dark btn-sm' type="submit" id="okSearch" value="Ok" onclick="table_factory()">
-
   </div>
 
   <div class=" d-flex align-items-center">
     <div id="load"></div>
   </div>
-
-
 </div>
+
 </div>
 <div id="buttons_table" class="collapse ">
   <button class="btn btn-dark btn-custom  btn-sm" onclick="closeTable()"><i class="fas fa-arrow-left"></i></button>
