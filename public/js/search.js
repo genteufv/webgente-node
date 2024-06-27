@@ -6,6 +6,7 @@ var layersQuerrys = new Array() //a consulta realizada em listqueryable
 var resultWFS = new Array() // o resultado da pesquisa em wfs
 var requestParams = new Object() // recolhe os parametros chave para requisição
 var focus_style = L.geoJSON().addTo(map);// zoom e adicionar estilos
+var layerSelectedIndex = 0
 
 //Gera os os campos pesquisáveis 
 function searchableFields() {
@@ -29,7 +30,7 @@ function searchableFields() {
                         subCheckbox.type = 'checkbox';
                         subCheckbox.value = element;
                         subCheckbox.id = `subfield_${element}`;
-                        subCheckbox.className = 'form-check-input';
+                        subCheckbox.className = 'form-check-input subSearch';
 
                         const subLabel = document.createElement('label');
                         subLabel.htmlFor = `subfield_${element}`;
@@ -77,8 +78,9 @@ function selectOptions() {
                 checkbox.type = 'checkbox';
                 checkbox.value = layer;
                 checkbox.id = `option_${layer}`;
-                checkbox.className = 'form-check-input';
+                checkbox.className = 'form-check-input group-layer';
                 checkbox.addEventListener('change', searchableFields);
+                checkbox.name = ''
                 
                 const label = document.createElement('label');
                 label.htmlFor = `option_${layer}`;
@@ -122,19 +124,27 @@ function updateSearchFieldsVisibility() {
 //Concatena strings dos inputs para o cql_filter 
 function filter_concate() {
     var cql_filter = ''
+    fieldsChecked = []
+    const checkboxes = document.querySelectorAll('.form-check-input.subSearch');
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            fieldsChecked.push(checkbox.defaultValue)
+        }
+    });
 
     for (query in requestParams.layerSelect.queryFields) {
-
-        var value = document.getElementById("sch").value
-        if (!value.trim() == false) {
-            //Adição da condição E para mais de uma propriedade
-            cql_filter += (value != "" & cql_filter != "") ? " or " : ""
-            //Verficação de tipo do campo
-            if (requestParams.layerSelect.queryFields[query].fieldType == "string") {
-                // cql_filter+= ("("+query+" LIKE "+ "'%"+value+"%')")
-                cql_filter += ("(" + query + " LIKE " + "'%" + value + "%' or " + query + " LIKE " + "'%" + (value.toLowerCase()) + "%' or " + query + " LIKE " + "'%" + (value.toUpperCase()) + "%') ")
-            } else {
-                cql_filter += (value != "") ? (isNaN(value)) ? (query + " = 000") : (query + " = " + "" + value + " ") : "";
+        if(fieldsChecked.includes(query)){
+            var value = document.getElementById("sch").value
+            if (!value.trim() == false) {
+                //Adição da condição E para mais de uma propriedade
+                cql_filter += (value != "" & cql_filter != "") ? " or " : ""
+                //Verficação de tipo do campo
+                if (requestParams.layerSelect.queryFields[query].fieldType == "string") {
+                    // cql_filter+= ("("+query+" LIKE "+ "'%"+value+"%')")
+                    cql_filter += ("(" + query + " LIKE " + "'%" + value + "%' or " + query + " LIKE " + "'%" + (value.toLowerCase()) + "%' or " + query + " LIKE " + "'%" + (value.toUpperCase()) + "%') ")
+                } else {
+                    cql_filter += (value != "") ? (isNaN(value)) ? (query + " = 000") : (query + " = " + "" + value + " ") : "";
+                }
             }
         }
     }
@@ -151,18 +161,17 @@ $('#okSearch').on('click', function(event) {
 
 //Adicionar elementos a tabela 
 function table_factory() {
-
+    index = 0
     $("#buttons_table").show()
     if (download_enabled != 0)
         $("#download_all").show()
 
-    const checkboxes = document.querySelectorAll('#options_container input[type="checkbox"]');
+    const checkboxes = document.querySelectorAll('.form-check-input.group-layer');
     checkboxes.forEach((checkbox, index) => {
         if (checkbox.checked) {
+            layerSelectedIndex = index
             var option = layersQuerrys[index];
-    
             requestParams.layerSelect = option
-            console.log(requestParams.layerSelect.layer)
             addLayerByName(requestParams.layerSelect.layer)
             filter_concate()
             //Adquire campos habilitados para o usuário
@@ -203,9 +212,7 @@ function table_factory() {
 }
 //Requisição da tabela
 function ajaxRequest(params) {
-    console.log("params")
-    console.log(params.data)
-    var option = layersQuerrys[0];
+    var option = layersQuerrys[layerSelectedIndex];
     var wfsParams = {
         layer: option.layer,
         format: encodeURIComponent('application/json'),
@@ -215,8 +222,6 @@ function ajaxRequest(params) {
 
     }
     var url1 = '/wfs/' + Object.values(wfsParams).join('/')
-    console.log(url1)
-    console.log(url)
     $.get({
         url: url1,
         success: (data) => {
