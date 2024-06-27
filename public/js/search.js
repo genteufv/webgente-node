@@ -7,8 +7,8 @@ var resultWFS = new Array() // o resultado da pesquisa em wfs
 var requestParams = new Object() // recolhe os parametros chave para requisição
 var focus_style = L.geoJSON().addTo(map);// zoom e adicionar estilos
 
-$(document).ready(function() {
-    // Evento delegado para manipular elementos dinâmicos
+//Gera os os campos pesquisáveis 
+function searchableFields() {
     $('#options_container').on('change', 'input[type="checkbox"]', function() {
         var $parentDiv = $(this).closest('.form-check');
         var layer = $(this).val();
@@ -55,15 +55,11 @@ $(document).ready(function() {
             $subOptions.find('input[type="checkbox"]').prop('checked', false);
             $subOptions.slideUp();
         }
-
-        // Verifica se há sub-opções visíveis para mostrar/esconder o botão de pesquisa
         updateSearchFieldsVisibility();
     });
+}
 
-    // Função para buscar e adicionar opções dinamicamente
-    selectOptions();
-});
-
+//Gera a lista de camadas disponíveis para a pesquisa
 function selectOptions() {
     $.ajax({
         url: '/listqueryable/',
@@ -82,6 +78,7 @@ function selectOptions() {
                 checkbox.value = layer;
                 checkbox.id = `option_${layer}`;
                 checkbox.className = 'form-check-input';
+                checkbox.addEventListener('change', searchableFields);
                 
                 const label = document.createElement('label');
                 label.htmlFor = `option_${layer}`;
@@ -100,7 +97,7 @@ function selectOptions() {
     });
 }
 
-//ocultar botão de ok caso não tenha item marcado
+//Controla Visibilidade do botão 'OK' conforme item marcado
 function updateSearchFieldsVisibility() {
     const searchButtonContainer = document.getElementById('search_button_container');
     const checkboxes = document.querySelectorAll('#options_container input[type="checkbox"]');
