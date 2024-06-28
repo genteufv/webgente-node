@@ -26,9 +26,9 @@ L.tileLayer.gfiWMS = function (url, options) {
 
 /* Adicionando evento de click no mapa para execução do getFeatureInfo */
 
-map.addEventListener('click',getFeatureInfo);
+map.addEventListener('click', getFeatureInfo);
 
-popup = new L.Popup({maxWidth: 400}) // Instanciando um popup com dimensões máximas 
+popup = new L.Popup({maxWidth: 500}) // Instanciando um popup com dimensões máximas 
 
 /* Função de getFeatureInfo junto ao backend */
 
@@ -73,7 +73,7 @@ function getFeatureInfo(e) {
 
 function JSONcontentParser (data) {
 
-    if (data.features.length == 0) { return 'No features selected or you may not have permission to see this!'}
+    if (data.features.length == 0) { return 'Nenhum recurso selecionado ou talvez você não tenha permissão para ver isso!'}
 
     /* Esta função recebe um JSON resultante do GetFeatureInfo e o formata para exibição em um formato adequado aos dados cadastrais */
 
@@ -83,8 +83,8 @@ function JSONcontentParser (data) {
         
         const element = data.features[i];
         var lbl = element.id.split('.')[0].split('_')[1]+': '+(featureCadasterId(element) != null ? featureCadasterId(element): element.id.split('.')[0]);
-        content.push('<div class="popup-inner-div"><p><a class="link-table-collapse" data-toggle="collapse" href="#row-'+i+'">'+lbl+'</a></p></div><div id="row-'+i+'" class="panel-collapse collapse"><div class="panel-body">');
-        var table = ['<table><tr><th>Atributo</th><th>Valor</th></tr>'];
+        content.push('<div class="popup-inner-div"><p><a class="link-table-collapse" style="font-size: medium" data-toggle="collapse" href="#row-'+i+'">'+lbl+'</a></p></div><div id="row-'+i+'" class="panel-collapse collapse"><div class="panel-body">');
+        var table = ['<table style="font-size: medium; width: 450px"><tr><th>Atributo</th><th>Valor</th></tr>'];
 
         for (j = 0; j < Object.keys(element.properties).length; j++) {    
 

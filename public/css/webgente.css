@@ -102,8 +102,10 @@ html, body, #map {
 }
 
 .leaflet-popup-content-wrapper {
-	max-height: 400px;
+	max-height: 600px;
+	width: 500px;
 	overflow-y: auto;
+	resize: vertical;
 }
 
 table {
