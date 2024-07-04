@@ -26,6 +26,7 @@ function searchableFields() {
                 var option = layersQuerrys.find(item => item.layer === layer);
                 if (option) {
                     Object.keys(option.queryFields).forEach((element) => {
+                        console.log()
                         const subCheckbox = document.createElement('input');
                         subCheckbox.type = 'checkbox';
                         subCheckbox.value = element;
@@ -34,7 +35,7 @@ function searchableFields() {
 
                         const subLabel = document.createElement('label');
                         subLabel.htmlFor = `subfield_${element}`;
-                        subLabel.innerText = option.queryFields[element].fieldAlias;
+                        subLabel.innerText = option.queryFields[element].fieldAlias ? option.queryFields[element].fieldAlias : element;
                         subLabel.className = 'form-check-label';
 
                         const subDiv = document.createElement('div');

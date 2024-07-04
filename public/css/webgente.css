@@ -12,6 +12,35 @@ html, body, #map {
     z-index: -1;
 }
 
+#map {
+	width: 70%;
+}
+
+@media (min-width: 900px) {
+	#map {
+		width: 75%;
+	}
+}
+@media (min-width: 1280px) {
+	#map {
+		width: 80%;
+	}
+}
+
+@media (min-width: 1920px) {
+	#map {
+		width: 85%;
+	}
+}
+
+@media (min-width: 2560px) {
+	#map {
+		width: 90%;
+	}
+}
+
+
+
 .webgente-logo {
 	margin-top: 10px;
 	margin-left: 50%;
