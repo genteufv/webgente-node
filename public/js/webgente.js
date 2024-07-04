@@ -106,17 +106,21 @@ var baseMaps = {
 var overlayMaps = {};
 
 var optionsControl = {
-    collapsed: true,
-    groupsCollapsable: true,
+    collapsed: false, //opção para deixar o controle de camadas aberto ou fechado true = fechado / false = aberto
+    groupsCollapsable: false, //opção para deixar as camadas aberto ou fechado true = fechado / false = aberto
     groupCheckboxes: true
 };
 
 Lc = L.control.groupedLayers(baseMaps,overlayMaps,optionsControl).addTo(map);
+// Mover o controle de camadas para a div com id 'tst' alterar o tst para o nome da div onde ficara o controle de camadas
+var controlContainer = Lc.getContainer();
+var tst = document.getElementById('tst');
+tst.appendChild(controlContainer);
 
 /* Lendo camadas da Base de Dados e adicionando ao controle */
 
 function addMetadata (metadata) {
-    
+    console.log(metadata)
     if (metadata != "" && metadata != "none" && metadata != undefined) { // "" é o armazenamento de metadados até a 1.0, a partir da 1.1 o armazenamento sem metadados é denotado como 'none'
         if (metadata.split('/public')[1] != undefined) {
             metadata = metadata.split('/public')[1]
