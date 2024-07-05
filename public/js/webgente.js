@@ -107,7 +107,7 @@ var overlayMaps = {};
 
 var optionsControl = {
     collapsed: false, //opção para deixar o controle de camadas aberto ou fechado true = fechado / false = aberto
-    groupsCollapsable: false, //opção para deixar as camadas aberto ou fechado true = fechado / false = aberto
+    groupsCollapsable: true, //opção para deixar as camadas aberto ou fechado true = fechado / false = aberto
     groupCheckboxes: true
 };
 
