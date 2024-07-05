@@ -114,8 +114,8 @@ var optionsControl = {
 Lc = L.control.groupedLayers(baseMaps,overlayMaps,optionsControl).addTo(map);
 // Mover o controle de camadas para a div com id 'tst' alterar o tst para o nome da div onde ficara o controle de camadas
 var controlContainer = Lc.getContainer();
-var tst = document.getElementById('tst');
-tst.appendChild(controlContainer);
+var menu = document.getElementById('menu');
+menu.appendChild(controlContainer);
 
 /* Lendo camadas da Base de Dados e adicionando ao controle */
 

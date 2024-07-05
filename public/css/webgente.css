@@ -5,41 +5,56 @@
 body {
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: row;
 }
-html, body, #map {
+
+html, body, #map , #menu{
+    z-index: -1;
     height: 100vh;
     position: relative;
-    z-index: -1;
 }
 
 #map {
 	width: 70%;
+}
+#menu {
+	width: 30%;
+	margin-left: auto;
 }
 
 @media (min-width: 900px) {
 	#map {
 		width: 75%;
 	}
+	#menu {
+		width: 25%;
+	}
 }
 @media (min-width: 1280px) {
 	#map {
 		width: 80%;
 	}
+	#menu {
+		width: 20%;
+	}
 }
-
 @media (min-width: 1920px) {
 	#map {
 		width: 85%;
 	}
+	#menu {
+		width: 15%;
+	}
 }
-
 @media (min-width: 2560px) {
 	#map {
 		width: 90%;
 	}
+	#menu {
+		width: 10%;
+	}
 }
-
-
 
 .webgente-logo {
 	margin-top: 10px;
