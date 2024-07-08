@@ -237,7 +237,7 @@ th {
 		width: 25%;
 	}
 	.webgente-search-container{
-		max-width: 45vh;
+		max-width: 300px;
 	}	
 }
 @media (min-width: 1280px) {
@@ -248,7 +248,7 @@ th {
 		width: 20%;
 	}
 	.webgente-search-container{
-		max-width: 88vh;
+		max-width: 630px;
 	}
 }
 @media (min-width: 1920px) {
@@ -259,7 +259,7 @@ th {
 		width: 15%;
 	}
 	.webgente-search-container{
-		max-width: 163vh;
+		max-width: 1240px;
 	}
 }
 @media (min-width: 2560px) {
@@ -270,7 +270,7 @@ th {
 		width: 10%;
 	}
 	.webgente-search-container{
-		max-width: 232vh;
+		max-width: 1900px;
 	}
 }
 
