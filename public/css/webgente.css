@@ -120,10 +120,11 @@ html, body, #map , #menu{
 }
 
 table {
-    width:250px;
-    text-align:left;
-    vertical-align:center;
+	width:250px;
     padding: 15px;
+    text-align:left;
+	font-size: 11px;
+    vertical-align:center;
     border-bottom: 1px solid #ddd;
     font-family: Tahoma, Geneva, sans-serif;
 }
@@ -237,7 +238,7 @@ th {
 		width: 25%;
 	}
 	.webgente-search-container{
-		max-width: 300px;
+		max-width: 605px;
 	}	
 }
 @media (min-width: 1280px) {
@@ -248,7 +249,18 @@ th {
 		width: 20%;
 	}
 	.webgente-search-container{
-		max-width: 630px;
+		max-width: 955px;
+	}
+}
+@media (min-width: 1366px) {
+	#map {
+		width: 80%;
+	}
+	#menu {
+		width: 20%;
+	}
+	.webgente-search-container{
+		max-width: 1025px;
 	}
 }
 @media (min-width: 1920px) {
@@ -270,7 +282,7 @@ th {
 		width: 10%;
 	}
 	.webgente-search-container{
-		max-width: 1900px;
+		max-width: 1980px;
 	}
 }
 
