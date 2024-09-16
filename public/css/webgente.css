@@ -223,6 +223,9 @@ th {
 	overflow-x: clip;
 	max-height: 100vh;
 }
+.leaflet-control-layers-list {
+	font-size: 11px;
+}
 
 @media (max-width: 768px) {
 	.leaflet-control-attribution {
