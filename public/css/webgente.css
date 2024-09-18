@@ -2,6 +2,19 @@
 
 /* Página inicial */
 
+@font-face {
+    font-family: 'GothamLight';
+    src: url('../fonts/GothamLight.otf') format('opentype');
+    font-weight: lighter;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GothamBlack';
+    src: url('../fonts/GothamBlack.otf') format('opentype');
+	font-weight: bold;
+    font-style: normal;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -13,6 +26,7 @@ html, body, #map , #menu{
     z-index: -1;
     height: 100vh;
     position: relative;
+	font-family: 'GothamLight', sans-serif;
 }
 
 #map {
