@@ -181,6 +181,11 @@ function table_factory() {
                 requestParams.property_name = Object.keys(data.field)
                 requestParams.property_name.push("id", "geom") // Adiciona o id e a geometria para utilizar em downloads e zoom
                 var column = new Array()
+                //Coluna para os botões
+                column.push({
+                    formatter: TableActions,
+                    title: (download_enabled == 0) ? "Zoom" : "Download/Zoom"
+                })
                 //Forma a coluna json
                 Object.keys(data.field).map((element) => {
                     if (element != 'geom') {
@@ -190,11 +195,6 @@ function table_factory() {
                         })
 
                     }
-                })
-                //Coluna para os botões
-                column.push({
-                    formatter: TableActions,
-                    title: (download_enabled == 0) ? "Zoom" : "Download/Zoom"
                 })
                 //Adicionando colunas a tabela
                 $("#table").bootstrapTable({

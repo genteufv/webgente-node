@@ -2,6 +2,19 @@
 
 /* Página inicial */
 
+@font-face {
+    font-family: 'GothamLight';
+    src: url('../fonts/GothamLight.otf') format('opentype');
+    font-weight: lighter;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GothamBlack';
+    src: url('../fonts/GothamBlack.otf') format('opentype');
+	font-weight: bold;
+    font-style: normal;
+}
+
 body {
     padding: 0;
     margin: 0;
@@ -10,6 +23,7 @@ html, body, #map {
     height: 100vh;
     position: relative;
     z-index: -1;
+	font-family: 'GothamLight', sans-serif;
 }
 
 .webgente-logo {
@@ -110,9 +124,10 @@ html, body, #map {
 
 table {
     width:250px;
+	padding: 15px;
     text-align:left;
+	font-size: 11px;
     vertical-align:center;
-    padding: 15px;
     border-bottom: 1px solid #ddd;
     font-family: Tahoma, Geneva, sans-serif;
 }
@@ -150,7 +165,7 @@ th {
 	margin-left: 60px;	
 	max-height: 70vh; 
 	padding: 3%;
-	max-width: 89%;
+	max-width: 55%;
     max-height: 95vh;
 	overflow-y: auto;
 	overflow-x: auto;
@@ -174,27 +189,6 @@ th {
 .webgente-search-form:hover {
 	background: rgb(216, 216, 216);
 	transition: background-color 0.5s ease;
-}
-
-@media (max-width: 768px) {
-
-	.webgente-search-container{
-		visibility: hidden;
-		pointer-events: visibleFill;
-		width: 50%;
-		height: auto;
-		background-color: #FFFFFF;
-		margin-top: 12px;
-		margin-left: 60px;	
-		max-height: 80vh; 
-		padding: 5%;
-		max-width: 65vh;
-		overflow-y: auto;
-		overflow-x: auto;
-		border-color: rgba(73, 73, 73, 0.377);
-		border-style: solid;
-		border-radius: 10px;
-	}	
 }
 
 .webgente-coordinates-container {
@@ -230,7 +224,11 @@ th {
 .leaflet-control-layers-expanded .leaflet-control-layers-list  {
 	overflow-y: auto;
 	overflow-x: clip;
-	max-height: 80vh;
+	max-height: 100vh;
+}
+
+.leaflet-control-layers-list {
+	font-size: 11px;
 }
 
 @media (max-width: 768px) {
@@ -239,5 +237,30 @@ th {
 	}
 }
 
+@media (min-width: 900px) {
+	.webgente-search-container{
+		max-width: 605px;
+	}	
+}
+@media (min-width: 1280px) {
+	.webgente-search-container{
+		max-width: 955px;
+	}
+}
+@media (min-width: 1366px) {
+	.webgente-search-container{
+		max-width: 1025px;
+	}
+}
+@media (min-width: 1920px) {
+	.webgente-search-container{
+		max-width: 1240px;
+	}
+}
+@media (min-width: 2560px) {
+	.webgente-search-container{
+		max-width: 1980px;
+	}
+}
 
 
