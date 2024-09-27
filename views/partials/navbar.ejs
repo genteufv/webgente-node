@@ -1,13 +1,25 @@
-<nav id="navbar" class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+<nav id="navbar" class="navbar navbar-expand-lg navbar" style="background-color: #3561a1;">
     
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <!-- Botão na esquerda -->
+  <button type="button" class="btn custom-btn-navbar" data-toggle="modal" 
+        data-target="#exampleModalLong" 
+        onclick="">
+      <span class="fas fa-bars"></span>
   </button>
-
-  <a class="navbar-brand" href="/"><img src="img/webgente-fundo-escuro-120x40.png" alt=""></a>
-
   
-  <% if(buttons == true){ %>
+  <!-- Espaço para empurrar o conteúdo para os lados -->
+  <div class="d-flex justify-content-center w-100">
+    <!-- Imagem no meio -->
+  </div>
+
+  <!-- Imagem na direta -->
+  <a class="navbar-brand d-flex align-items-center">
+      <img height="30" width="110" src="img/webgente-branco.png" alt="logo webgente">
+      <span class="col-1 text-white" style="font-size: 2rem;">UFV</span>
+  </a>
+  
+ 
+  <!-- <% if(buttons == true){ %>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <% if (cityName != undefined) { %>
@@ -21,6 +33,6 @@
     <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModalLong" onclick='window.open("https://www.webgente.genteufv.com.br", "_blank");'><span class="far fa-question-circle"></span></button>
     &nbsp;
     <button class="btn btn-secondary btn-sm" type="button" id="enviar" onclick="login()"><span class="fas fa-user-lock"></span></button>
-  <% } %>
+  <% } %> -->
   </div>
 </nav>

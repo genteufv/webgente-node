@@ -262,5 +262,13 @@ th {
 		max-width: 1980px;
 	}
 }
-
+.custom-btn-navbar {
+	width: 80px;
+	color: #FFF;
+	height: 70px;
+    font-size: 40px;
+	&:hover {
+		color: #f3cf38;
+	}
+}
 
