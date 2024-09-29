@@ -48,8 +48,12 @@ if (session != undefined && session != '') {
 
 
 
-L.easyBar(loginBar).addTo(map)
-L.control.zoom().addTo(map);
+L.easyBar(loginBar,{
+    position: 'bottomright'
+}).addTo(map)
+L.control.zoom({
+    position: 'topright'
+}).addTo(map);
 
 /* Adicionando escala gráfica ao mapa */
 
@@ -226,7 +230,9 @@ function existsBasemap(data){
 var home = L.easyButton('fas fa-home', function(btn, map){
     var initial = [initView.lat,initView.lng];
     map.setView(initial,initView.zoom);
-},'Voltar o mapa à vista inicial').addTo(map);
+},'Voltar o mapa à vista inicial',{
+    position: "bottomright"
+}).addTo(map);
 
 // Adiciona o botao de seleção de feições
 var select= false; // Variável que habilita a seleção de camadas
@@ -527,7 +533,9 @@ var buttonsBar = [
     measurementButton
 ]
 
-L.easyBar(buttonsBar).addTo(map);
+L.easyBar(buttonsBar, {
+    position: 'bottomright'
+}).addTo(map);
 
 /* Adicionando tooltips aos botões */
 
