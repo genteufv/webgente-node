@@ -68,7 +68,7 @@ L.control.scale(optionsScale).addTo(map);
 
 var help = L.easyButton({
     id: 'webgente-help',
-    position: 'bottomleft',
+    position: 'bottomright',
     states: [
         {
             stateName: 'help',
@@ -116,6 +116,10 @@ var optionsControl = {
 };
 
 Lc = L.control.groupedLayers(baseMaps,overlayMaps,optionsControl).addTo(map);
+
+var controlContainer = Lc.getContainer();
+var menu = document.getElementById('menu');
+menu.appendChild(controlContainer);
 
 /* Lendo camadas da Base de Dados e adicionando ao controle */
 
@@ -546,7 +550,7 @@ $('button').tooltip({
 
 $('.leaflet-control-layers-toggle').attr("title","Controle de Camadas");
 $('.leaflet-control-layers-toggle').tooltip({
-    placement: 'right',
+    placement: 'left',
     trigger : 'hover'
 })
 

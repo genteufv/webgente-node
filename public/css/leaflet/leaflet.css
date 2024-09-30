@@ -552,7 +552,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
 	border: 1px solid #999;
 	}
 
-
+.leaflet-control-zoom {
+	top: 70px;
+}
 /* div icon */
 
 .leaflet-div-icon {

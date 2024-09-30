@@ -25,6 +25,17 @@ html, body, #map {
     z-index: -1;
 	font-family: 'GothamLight', sans-serif;
 }
+#navbar {
+	height: 70px;
+	width: 100%;
+	z-index: 1002;
+	position: absolute;
+}
+#menu {
+	top: 16px;
+	z-index: 10;
+	position: absolute;
+}
 
 .webgente-logo {
 	margin-top: 10px;
@@ -161,8 +172,8 @@ th {
 	width: auto;
 	height: auto;
 	background-color: #FFFFFF;
-	margin-top: 12px;
-	margin-left: 60px;	
+	margin-top: 75px;
+	margin-left: 260px;
 	max-height: 70vh; 
 	padding: 3%;
 	max-width: 55%;
@@ -227,6 +238,15 @@ th {
 	max-height: 100vh;
 }
 
+.leaflet-control-layers-expanded {
+	top: 54px;
+	left: -16px;
+	height: calc(100vh - 70px);
+	border-radius: 0;
+	min-width: 200px;
+	max-width: 250px;
+}
+
 .leaflet-control-layers-list {
 	font-size: 11px;
 }
@@ -239,36 +259,27 @@ th {
 
 @media (min-width: 900px) {
 	.webgente-search-container{
-		max-width: 605px;
+		max-width: 590px;
 	}	
 }
 @media (min-width: 1280px) {
 	.webgente-search-container{
-		max-width: 955px;
+		max-width: 970px;
 	}
 }
 @media (min-width: 1366px) {
 	.webgente-search-container{
-		max-width: 1025px;
+		max-width: 1060px;
 	}
 }
 @media (min-width: 1920px) {
 	.webgente-search-container{
-		max-width: 1240px;
+		max-width: 1540px;
 	}
 }
 @media (min-width: 2560px) {
 	.webgente-search-container{
 		max-width: 1980px;
-	}
-}
-.custom-btn-navbar {
-	width: 80px;
-	color: #FFF;
-	height: 70px;
-    font-size: 40px;
-	&:hover {
-		color: #f3cf38;
 	}
 }
 
