@@ -3,7 +3,7 @@ var drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
 
 var drawControl = new L.Control.Draw({
-    position: 'topleft',
+    position: 'topright',
     draw: {
         polyline: {
             showLength: true

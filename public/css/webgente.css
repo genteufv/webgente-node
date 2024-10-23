@@ -251,6 +251,11 @@ th {
 	font-size: 11px;
 }
 
+.leaflet-draw {
+	position: absolute;
+	top: 150px;
+}
+
 @media (max-width: 768px) {
 	.leaflet-control-attribution {
 		display: none;
