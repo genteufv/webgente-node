@@ -288,3 +288,6 @@ th {
 	}
 }
 
+.leaflet-control-layers-group > label:not(.leaflet-control-layers-group-label) {
+    padding-left: 15px;
+}
